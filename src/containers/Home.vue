@@ -1,29 +1,17 @@
 <template>
   <div class="home">
-      <div class="left-tab">
-          <Tab />
-      </div>
-      <div class="right-item">
-        <SearchItem />
-        <ListItem />
-      </div>
-      <div class="chat-item">
-        <ChatItem />
-      </div>
+      <loginAndRegister />
+      <UserInfo />
   </div>
 </template>
 
 <script>
-import Tab from '@/components/tab';
-import ListItem from '@/containers/ListItem'
-import SearchItem from '@/containers/SearchItem'
-import ChatItem from '@/containers/ChatItem'
+import loginAndRegister from './LoginAndRegister/loginAndRegister'
+import UserInfo from './UserInfo'
 export default {
     components: {
-        Tab,
-        ListItem,
-        SearchItem,
-        ChatItem
+        loginAndRegister,
+        UserInfo
     },
     data() {
         return {

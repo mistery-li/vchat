@@ -1,70 +1,47 @@
-import { login, logout, register } from '@/api/user'
-import { setToken, removeToken } from '@/utils/auth'
-
 const state = {
-    token: '',
-    username: '',
-    avatar: '',
-    desc: '',
+    user: {
+        _id: '',
+        username: '',
+        password: '',
+        avatar: '',
+        createAt: 0,
+        updateAt: 0,
+        friends: [],
+        groups: [],
+    },
 }
 
-const mutations = {
-    SET_TOKEN: (state, token) => {
-        state.token = token
+const getters = {
+    getUserInfo: (state) => {
+        return state.user
     },
 
 }
 
 const actions = {
-    login({ commit }, userInfo) {
-        const {username, password} = userInfo
-        return new Promise((resolve, reject) => {
-            login({username: username.trim(), password: password}).then(response => {
-                const {data} = response
-                commit('SET_TOKEN', data.token)
-                setToken(data.token)
-                // token 保存
-                resolve()
-            }).catch(error => {
-                reject(error)
-            })
-        })
+    updateUser ({ commit}, user) {
+        commit('updateUser', user)
     },
 
-    logout({ commit, state}) {
-        return new Promise((resolve, reject) => {
-            logout(state.token).then(() => {
+    setUser( {commit}, user) {
+        commit('SetUser', user);
+    }
+    
+}
 
-                commit('SET_TOKEN', '')
-                removeToken()
-                
-                resolve()
-            }).catch(error => {
-                reject(error)
-            })
-
-            
-        })
+const mutations = {
+    updateUser(state, {user}) {
+        state.user = user;
     },
-
-    register({ commit }, userInfo) {
-        const {username, password} = userInfo
-        return new Promise((resolve, reject) => {
-            register({username : username.trim(), password: password}).then(response => {
-                const {data} = response
-                commit('SET_TOKEN', data.token)
-                setToken(data.token)
-                resolve()
-            }).catch(error => {
-                reject(error)
-            })
-        })
+    SetUser( state, {user}) {
+        state.user = user;
     }
 }
 
 export default {
     namespaced: true,
     state,
+    getters,
+    actions,
     mutations,
-    actions
 }

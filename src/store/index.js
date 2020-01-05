@@ -1,21 +1,43 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
-import getters from './getters'
+import Vuex, { Store } from 'vuex'
 
 Vue.use(Vuex)
 
-const modulesFiles = require.context('./modules', true, /\.js$/)
-
-const modules = modulesFiles.keys().reduce((module, modulePath) => {
-  const moduleName = modulePath.replace(/^\.\/(.*)\.\w+$/, '$1')
-  const value = modulesFiles(modulePath)
-  module[moduleName] = value.default
-  return module
-}, {})
-
-const store = new Vuex.Store({
-    modules,
-    getters
+import user from './modules/user'
+import message from './modules/message'
+const store = new Store({
+    state: {
+        showDialog: false,
+        userInfoDialog: false,
+    },
+    getters: {
+        getShowDialog: state => {
+            return state.showDialog
+        },
+        getShowInfoDialog: state => {
+            return state.userInfoDialog
+        } 
+    },
+    actions: {
+        openShowDialog: ({ commit }) => {
+            commit('openShowDialog', true)
+        },
+        openUserInfoDialog: ({ commit }) => {
+            commit('openUserInfoDialog', true)
+        }
+    },
+    mutations: {
+        openShowDialog: (state, isOpen) => {
+            state.showDialog = isOpen
+        },
+        openUserInfoDialog: (state, isOpen) => {
+            state.userInfoDialog = isOpen
+        }
+    },
+    modules: {
+        user,
+        message
+    },
 })
 
-export default store
+export default store;

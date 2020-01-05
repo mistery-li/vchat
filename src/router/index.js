@@ -1,11 +1,10 @@
-import Login from '../containers/Login'
 import Home from '@/containers/Home'
 
 const routes = [
     {
-        path: '/login',
-        name: 'login',
-        component: Login,
+        path: '/',
+        name: 'home',
+        component: Home,
     },
     {
         path: '/home',
