@@ -9,6 +9,7 @@ const store = new Store({
     state: {
         showDialog: false,
         userInfoDialog: false,
+        isLogin: window.localStorage.getItem('token')
     },
     getters: {
         getShowDialog: state => {

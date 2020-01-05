@@ -22,8 +22,8 @@ export default {
   },
   data() {
     return {
-      userInfoDialog: this.$store.getters.getShowInfoDialog,
-      user: this.$store.getters.getUserInfo
+      userInfoDialog: this.$store.state.userInfoDialog,
+      user: this.$store.state.user.user
     }
   }
 }
